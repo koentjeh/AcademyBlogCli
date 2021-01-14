@@ -1,0 +1,22 @@
+{
+  "name": "koen/academy-blog-cli",
+  "version": "0.0.1",
+  "description": "Provides Cli commands to interact with the Magento 2 Blog module",
+  "type": "magento2-module",
+  "require": {
+    "PHP": ">=7.1",
+    "magento/framework": "*",
+    "koen/academy-blog-core": "0.0.*"
+  },
+  "license": [
+    "Proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Koen\\AcademyBlogCli\\": ""
+    }
+  }
+}
