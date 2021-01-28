@@ -3,7 +3,6 @@
 namespace Koen\AcademyBlogCli\Console\Command\Blog\Post;
 
 use Koen\AcademyBlogCore\Api\Data\PostInterface;
-use Koen\AcademyBlogCore\Api\Data\WriteablePostInterface;
 use Koen\AcademyBlogCore\Repository\Blog\PostRepositoryInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,7 +24,7 @@ class PostCreateCommand extends Command
 
     public function configure()
     {
-        $this->setName(PostCommandInterface::NAME . ':' . PostCommandInterface::CATEGORY . ':create')
+        $this->setName('blog:post:create')
             ->setDescription('Create a blog post')
             ->addOption(PostInterface::TITLE, 't', InputOption::VALUE_REQUIRED, 'The Blog Post Title')
             ->addOption(PostInterface::BODY, 'b', InputOption::VALUE_REQUIRED, 'The Blog Post Body')
@@ -34,7 +33,7 @@ class PostCreateCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var WriteablePostInterface $post */
+        /** @var MutablePostInterface $post */
         $post = $this->postRepository->create();
         $post->setTitle((string)$input->getOption(PostInterface::TITLE));
         $post->setBody((string)$input->getOption(PostInterface::BODY));

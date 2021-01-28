@@ -22,7 +22,7 @@ class PostListingCommand extends Command
 
     protected function configure()
     {
-        $this->setName(PostCommandInterface::NAME . ':' . PostCommandInterface::CATEGORY . ':list')
+        $this->setName('blog:post:list')
             ->setDescription('List all Blog Posts');
     }
 
