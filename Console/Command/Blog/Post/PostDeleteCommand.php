@@ -17,6 +17,7 @@ class PostDeleteCommand extends Command
         PostRepositoryInterface $postRepository,
         string $name = null
     ) {
+        parent::__construct($name);
         $this->postRepository = $postRepository;
     }
 

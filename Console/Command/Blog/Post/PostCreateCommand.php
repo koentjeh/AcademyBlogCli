@@ -3,7 +3,7 @@
 namespace Koen\AcademyBlogCli\Console\Command\Blog\Post;
 
 use Koen\AcademyBlogCore\Api\Data\PostInterface;
-use Koen\AcademyBlogCore\Repository\Blog\PostRepositoryInterface;
+use Koen\AcademyBlogCore\Api\PostRepositoryInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -22,7 +22,7 @@ class PostCreateCommand extends Command
         $this->postRepository = $postRepository;
     }
 
-    public function configure()
+    protected function configure()
     {
         $this->setName('blog:post:create')
             ->setDescription('Create a blog post')
@@ -31,15 +31,19 @@ class PostCreateCommand extends Command
             ->addOption(PostInterface::URL_KEY, 'u', InputOption::VALUE_OPTIONAL, 'The Blog Post Url Key');
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var MutablePostInterface $post */
         $post = $this->postRepository->create();
+
         $post->setTitle((string)$input->getOption(PostInterface::TITLE));
         $post->setBody((string)$input->getOption(PostInterface::BODY));
 
         // If empty UrlKey becomes Title
         $urlKey = $input->getOption(PostInterface::URL_KEY) ?? $input->getOption(PostInterface::TITLE);
         $post->setUrlKey($urlKey);
+
+        $this->postRepository->save($post);
+
+        $output->writeln('Successfully create new blog post');
     }
 }
